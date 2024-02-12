@@ -12,8 +12,11 @@
             <h1>Employees</h1>
         </div>
         @if (session()->has('sukses'))
-            <div class="pt-3">
-                <div class="alert alert-success">
+            <div class="alert alert-success alert-dismissible show fade">
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>&times;</span>
+                    </button>
                     {{ session('sukses') }}
                 </div>
             </div>
@@ -50,12 +53,18 @@
                             @enderror
                         </div>
                         <div>
-                            <a href="#" class="btn btn-primary col-12" wire:click="create" wire:loading.remove>
-                                Submit
-                            </a>
-                            <div wire:loading wire:target="create">
-                                Sasasa
-                            </div>
+                            @if ($updateData == false)
+                                <button type="button" class="btn btn-primary col-12" wire:click="create">
+                                    Simpan
+                                </button>
+                            @else
+                                <button type="button" class="btn btn-primary col-12" wire:click="update">
+                                    Update
+                                </button>
+                            @endif
+                            <button type="button" class="btn btn-outline-primary mt-2 col-12" wire:click="resetForm">
+                                Clear
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -92,7 +101,14 @@
                                         <td>{{ $employee->nama }}</td>
                                         <td>{{ $employee->email }}</td>
                                         <td>{{ $employee->alamat }}</td>
-                                        <td><a href="#" class="btn btn-secondary">Detail</a></td>
+                                        <td>
+                                            <div class="d-flex justify-content-center">
+                                                <a wire:click='edit({{ $employee->id }})' class="btn btn-info mr-2"><i
+                                                        class="fas fa-edit mr-2"></i>Edit</a>
+                                                <a href="#" class="btn btn-danger"><i
+                                                        class="fas fa-times mr-2"></i>Delete</a>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </table>

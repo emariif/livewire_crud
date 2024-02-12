@@ -17,6 +17,9 @@ class Employee extends Component
 
     public $query = '';
 
+    public $updateData = false;
+    public $employee_id;
+
     public function search() {
         $this->resetPage();
     }
@@ -27,17 +30,47 @@ class Employee extends Component
         return view('pages.employee', compact('employees'))->layout('layouts.app');
     }
 
+    public function resetForm() {
+        $this->reset();
+    }
+
     public function create()
     {
         $validated = $this->validate([
             'nama'  => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'alamat'=> 'required',
         ]);
 
         ModelsEmployee::create($validated);
 
         session()->flash('sukses', 'Data berhasil ditambahkan');
+
+        $this->reset();
+    }
+
+    public function edit($id) {
+        $employee = ModelsEmployee::find($id);
+
+        $this->nama = $employee->nama;
+        $this->email = $employee->email;
+        $this->alamat = $employee->email;
+
+        $this->updateData = true;
+        $this->employee_id = $id;
+    }
+
+    public function update() {
+        $validated = $this->validate([
+            'nama'  => 'required',
+            'email' => 'required|email',
+            'alamat' => 'required'
+        ]);
+
+        $data = ModelsEmployee::find($this->employee_id);
+        $data->update($validated);
+
+        session()->flash('sukses', 'Data berhasil di update');
 
         $this->reset();
     }
