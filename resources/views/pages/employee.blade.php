@@ -105,7 +105,8 @@
                                             <div class="d-flex justify-content-center">
                                                 <a wire:click='edit({{ $employee->id }})' class="btn btn-info mr-2"><i
                                                         class="fas fa-edit mr-2"></i>Edit</a>
-                                                <a href="#" class="btn btn-danger"><i
+                                                <a wire:click='delete_confirm({{ $employee->id }})' class="btn btn-danger" data-toggle="modal"
+                                                    data-target="#exampleModal"><i
                                                         class="fas fa-times mr-2"></i>Delete</a>
                                             </div>
                                         </td>
@@ -124,6 +125,26 @@
             </div>
         </div>
     </section>
+
+    <div wire:ignore.self class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Really</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Do you want to continue?</p>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <button wire:click='delete' type="button" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @push('scripts')
