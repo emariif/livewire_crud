@@ -20,6 +20,7 @@ class Employee extends Component
     public $updateData = false;
     public $employee_id;
 
+    public $isSelectedAll = false;
     public $employee_selected_id = [];
 
     public function search() {
@@ -99,6 +100,14 @@ class Employee extends Component
     public function delete_confirm($id) {
         if ($id != '') {
             $this->employee_id = $id;
+        }
+    }
+
+    public function select_all() {
+        if ($this->isSelectedAll) {
+            $this->employee_selected_id = ModelsEmployee::pluck('id')->toArray();
+        } else {
+            $this->employee_selected_id = [];
         }
     }
 }

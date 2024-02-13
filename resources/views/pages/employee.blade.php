@@ -97,7 +97,7 @@
                                 <tr>
                                     <th>
                                         <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad"
+                                            <input type="checkbox" wire:click="select_all" wire:model="isSelectedAll" data-checkboxes="mygroup" data-checkbox-role="dad"
                                                 class="custom-control-input" id="checkbox-all">
                                             <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
                                         </div>
@@ -184,13 +184,8 @@
 
 @push('scripts')
     <!-- JS Libraies -->
-    <script src="{{ asset('library/simpleweather/jquery.simpleWeather.min.js') }}"></script>
-    <script src="{{ asset('library/chart.js/dist/Chart.min.js') }}"></script>
-    <script src="{{ asset('library/jqvmap/dist/jquery.vmap.min.js') }}"></script>
-    <script src="{{ asset('library/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
-    <script src="{{ asset('library/summernote/dist/summernote-bs4.min.js') }}"></script>
-    <script src="{{ asset('library/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
+    <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
 
     <!-- Page Specific JS File -->
-    <script src="{{ asset('js/page/index-0.js') }}"></script>
+    <script src="{{ asset('js/page/components-table.js') }}"></script>
 @endpush
