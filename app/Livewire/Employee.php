@@ -26,7 +26,10 @@ class Employee extends Component
 
     public function render()
     {
-        $employees = ModelsEmployee::where('nama', 'like', '%'.$this->query.'%')->latest()->paginate(5);
+        $employees = ModelsEmployee::where('nama', 'like', '%'.$this->query.'%')
+            ->orWhere('email', 'like', '%'.$this->query.'%')
+            ->orWhere('alamat', 'like', '%'.$this->query.'%')
+            ->latest()->paginate(5);
         return view('pages.employee', compact('employees'))->layout('layouts.app');
     }
 

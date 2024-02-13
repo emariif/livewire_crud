@@ -76,7 +76,7 @@
                         <div class="card-header-form">
                             <form wire:submit='search'>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search" wire:model='query'>
+                                    <input type="text" class="form-control" placeholder="Search" wire:model.live='query'>
                                     <div class="input-group-btn">
                                         <button class="btn btn-primary"><i class="fas fa-search"
                                                 type="submit"></i></button>
@@ -95,7 +95,7 @@
                                     <th>Alamat</th>
                                     <th>Action</th>
                                 </tr>
-                                @foreach ($employees as $employee)
+                                @forelse ($employees as $employee)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $employee->nama }}</td>
@@ -111,7 +111,11 @@
                                             </div>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center">Tidak ada data yang ditemukan untuk pencarian "{{ $query }}".</td>
+                                    </tr>
+                                @endforelse
                             </table>
                         </div>
                     </div>
