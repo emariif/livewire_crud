@@ -20,6 +20,8 @@ class Employee extends Component
     public $updateData = false;
     public $employee_id;
 
+    public $employee_selected_id = [];
+
     public function search() {
         $this->resetPage();
     }
@@ -79,13 +81,24 @@ class Employee extends Component
     }
 
     public function delete() {
-        $id = $this->employee_id;
-        ModelsEmployee::find($id)->delete();
+        if ($this->employee_id != '') {
+            $id = $this->employee_id;
+            ModelsEmployee::find($id)->delete();
+        }
+
+        if (count($this->employee_selected_id)) {
+            for ($x = 0; $x<count($this->employee_selected_id); $x++) {
+                ModelsEmployee::find($this->employee_selected_id[$x])->delete();
+            }
+        }
+
         session()->flash('sukses', 'Data berhasil di hapus');
         $this->reset();
     }
 
     public function delete_confirm($id) {
-        $this->employee_id = $id;
+        if ($id != '') {
+            $this->employee_id = $id;
+        }
     }
 }

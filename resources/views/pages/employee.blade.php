@@ -76,7 +76,8 @@
                         <div class="card-header-form">
                             <form wire:submit='search'>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search" wire:model.live='query'>
+                                    <input type="text" class="form-control" placeholder="Search"
+                                        wire:model.live='query'>
                                     <div class="input-group-btn">
                                         <button class="btn btn-primary"><i class="fas fa-search"
                                                 type="submit"></i></button>
@@ -85,10 +86,22 @@
                             </form>
                         </div>
                     </div>
+                    @if ($employee_selected_id)
+                        <a wire:click="delete_confirm('')" class="btn btn-danger col-md-2 m-3" data-toggle="modal"
+                            data-target="#exampleModal"><i class="fas fa-times mr-2"></i>Delete
+                            {{ count($employee_selected_id) }} data</a>
+                    @endif
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table-striped table-md table">
                                 <tr>
+                                    <th>
+                                        <div class="custom-checkbox custom-control">
+                                            <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad"
+                                                class="custom-control-input" id="checkbox-all">
+                                            <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                                        </div>
+                                    </th>
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Email</th>
@@ -97,6 +110,16 @@
                                 </tr>
                                 @forelse ($employees as $employee)
                                     <tr>
+                                        <td>
+                                            <div class="custom-checkbox custom-control">
+                                                <input type="checkbox" data-checkboxes="mygroup"
+                                                    wire:key='{{ $employee->id }}' value="{{ $employee->id }}"
+                                                    wire:model.live='employee_selected_id' class="custom-control-input"
+                                                    id="checkbox-{{ $employee->id }}">
+                                                <label for="checkbox-{{ $employee->id }}"
+                                                    class="custom-control-label">&nbsp;</label>
+                                            </div>
+                                        </td>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $employee->nama }}</td>
                                         <td>{{ $employee->email }}</td>
@@ -105,7 +128,8 @@
                                             <div class="d-flex justify-content-center">
                                                 <a wire:click='edit({{ $employee->id }})' class="btn btn-info mr-2"><i
                                                         class="fas fa-edit mr-2"></i>Edit</a>
-                                                <a wire:click='delete_confirm({{ $employee->id }})' class="btn btn-danger" data-toggle="modal"
+                                                <a wire:click='delete_confirm({{ $employee->id }})'
+                                                    class="btn btn-danger" data-toggle="modal"
                                                     data-target="#exampleModal"><i
                                                         class="fas fa-times mr-2"></i>Delete</a>
                                             </div>
@@ -113,7 +137,8 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center">Tidak ada data yang ditemukan untuk pencarian "{{ $query }}".</td>
+                                        <td colspan="6" class="text-center">Tidak ada data yang ditemukan untuk
+                                            pencarian "{{ $query }}".</td>
                                     </tr>
                                 @endforelse
                             </table>
@@ -143,7 +168,8 @@
                     <p>Do you want to continue?</p>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
-                    <button wire:click='delete' type="button" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                    <button wire:click='delete' type="button" class="btn btn-danger"
+                        data-dismiss="modal">Yes</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
