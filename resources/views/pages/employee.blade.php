@@ -137,8 +137,13 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center">Tidak ada data yang ditemukan untuk
-                                            pencarian "{{ $query }}".</td>
+                                        <td colspan="6" class="text-center">
+                                            @if (!empty($query))
+                                                Tidak ada data yang ditemukan untuk
+                                                pencarian "{{ $query }}".
+                                            @endif
+                                            Data masih kosong
+                                        </td>
                                     </tr>
                                 @endforelse
                             </table>
