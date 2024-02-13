@@ -23,6 +23,14 @@ class Employee extends Component
     public $isSelectedAll = false;
     public $employee_selected_id = [];
 
+    public $sortColumn = 'nama';
+    public $sortDirection = 'asc';
+
+    public function sort($columnName) {
+        $this->sortColumn = $columnName;
+        $this->sortDirection = $this->sortDirection == 'asc' ? 'desc' : 'asc';
+    }
+
     public function search() {
         $this->resetPage();
     }
@@ -32,7 +40,7 @@ class Employee extends Component
         $employees = ModelsEmployee::where('nama', 'like', '%'.$this->query.'%')
             ->orWhere('email', 'like', '%'.$this->query.'%')
             ->orWhere('alamat', 'like', '%'.$this->query.'%')
-            ->latest()->paginate(5);
+            ->orderBy($this->sortColumn, $this->sortDirection)->paginate(5);
         return view('pages.employee', compact('employees'))->layout('layouts.app');
     }
 

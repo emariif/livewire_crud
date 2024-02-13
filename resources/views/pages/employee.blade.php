@@ -103,9 +103,9 @@
                                         </div>
                                     </th>
                                     <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Email</th>
-                                    <th>Alamat</th>
+                                    <th wire:click="sort('nama')">Nama</th>
+                                    <th wire:click="sort('email')">Email</th>
+                                    <th wire:click="sort('alamat')">Alamat</th>
                                     <th>Action</th>
                                 </tr>
                                 @forelse ($employees as $employee)
