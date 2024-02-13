@@ -120,7 +120,7 @@
                                                     class="custom-control-label">&nbsp;</label>
                                             </div>
                                         </td>
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $employees->firstItem() + $loop->index }}</td>
                                         <td>{{ $employee->nama }}</td>
                                         <td>{{ $employee->email }}</td>
                                         <td>{{ $employee->alamat }}</td>
